@@ -1,19 +1,22 @@
 import  express  from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from 'mongoose';
-import {book} from './models/bookModel.js'
+import booksRoutes from './routes/booksRoutes.js';
+
 
 const app = express();
 
+//Middleware for parsing request body
+app.use(express.json());
+
+
+
 app.get('/',(request,response) => {
     console.log(request);
-    return response.status(234).send("MERN Stack")
+    return response.status(234).send("MERN Stack Project")
 });
 
-
-//Route to save a New Book
-
-//h
+app.use('/books',booksRoutes);
 
 
 mongoose.connect(mongoDBURL)
@@ -28,4 +31,4 @@ mongoose.connect(mongoDBURL)
 
 .catch((error) => {
     console.log(error);
-})
+});
